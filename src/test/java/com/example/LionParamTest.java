@@ -1,22 +1,29 @@
 package com.example;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import static org.junit.Assert.*;
 @RunWith(Parameterized.class)
-public class LionTest {
-
+public class LionParamTest {
+    boolean expectedResult;
+    String sex;
+    @Parameterized.Parameters
+    public static Object[][] data() {
+        return new Object[][]{
+                {"Самец", true},
+                {"Самка", false},
+        };
+    }
+    public LionParamTest(String sex, boolean expectedResult) {
+        this.sex = sex;
+        this.expectedResult = expectedResult;
+        }
     @Test
-    public void getKittens() {
+    public void doesHaveMane() throws Exception {
+        Lion lion = new Lion(sex, null);
+        Assert.assertEquals(expectedResult, lion.doesHaveMane());
     }
 
-    @Test
-    public void doesHaveMane() {
-    }
-
-    @Test
-    public void getFood() {
-    }
 }
